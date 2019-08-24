@@ -1,0 +1,36 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+\documentclass[UTF8]{standalone}
+\usepackage{amsmath,ctex,tikz}
+\begin{document}
+\begin{tikzpicture}
+    \draw (0,0) circle (4);
+    \draw[dashed] (-4,0) -- (4,0);
+    \draw (-4,0) arc (-180: 0: 4 and 0.6);
+    \draw[dashed] (4,0) arc (0: 180: 4 and 0.6);
+    \draw[dashed] (0,-4) arc (-90 : 90 : 1 and 4);
+    \draw[dashed] (0,-4) arc (-90 : 90 : 3 and 4);
+    \filldraw (2.9,1) circle (0.03) node[above=3pt,right=0pt] (a) {$A$};
+    \filldraw (0.94,1.4) circle (0.03) node[above=3pt,right=0pt] (b) {$B$};
+    \filldraw (2.98,-0.4) circle (0.03) ;
+    \filldraw (0.99,-0.58) circle (0.03) ;
+
+    \draw[-latex] (0,0) -- ++ (6,0) node[above] {$x$};
+    \draw[-latex] (0,0) -- ++ (-5,-1.66) node[above] {$y$};
+    \draw[-latex] (0,0) -- ++ (0,6) node[right] {$z$};
+
+    \node[left=5pt,above=1pt] (0,0) {$O$};
+
+    \draw[dashed] (0,0) -- (2.9,1);
+    \draw[dashed] (0,0) -- (0.94,1.4);
+    \draw[dashed] (0,0) -- (2.98,-0.4);
+    \draw[dashed] (0,0) -- (0.99,-0.58);
+    \draw (1.8,0) arc (0: -14: 1) node[above=2pt,right=-3pt] {$\beta_{0}$};
+    \draw (0.8,0) arc (0: -40: 0.6) node[above=5pt,right=0pt] {$\beta$};
+    \draw (0.5,-0.3) arc (-40: 55: 0.6) node[above=-3pt,right=2pt] {$\alpha$};
+    \draw (1.6,-0.23) arc (-10: 33: 1) node[above=-5pt,right=0pt] {$\alpha_{0}$};
+    \draw (1.2,0.4) arc (20: 60: 1.2) node[above=-5pt,right=7pt] {$\gamma$};
+    \draw (0.5,1.25) arc (180: 240: 0.3) node[above=0pt,left=3pt] {$\gamma$};
+    \draw[-latex] (0.94,1.4) -- ++ (-1.45,-0.5);
+\end{tikzpicture}
+\end{document}

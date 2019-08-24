@@ -1,0 +1,56 @@
+% !TeX program = xelatex
+% !TeX encoding = UTF-8
+\documentclass[UTF8]{standalone}
+\usepackage{tikz,mathpazo,ctex}
+\usetikzlibrary{shapes.geometric,shapes.arrows}
+\usepackage{flowchart}
+\begin{document}
+\begin{tikzpicture}[font={\sf \small}]
+\def \smbwd{2cm}
+
+\node (1) at (0,0) [draw=cyan!80!black, terminal,minimum width=\smbwd, minimum height=0.5cm] {系统启动};
+
+\node (2) at (0,-2.5) [draw=cyan!80!black, decision, minimum width=\smbwd, minimum height=1cm] {CNC 是否空闲};
+
+\node (3) at (4.5,-2.5) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {CNC 工作};
+
+\node (4) at (0,-5.5) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {发出上下料信号};
+
+\node (5) at (0,-8.5) [draw=cyan!80!black, decision, minimum width=\smbwd, minimum height=1cm] {RGV 是否能立刻上下料};
+
+\node (6) at (4.5,-8.5) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {CNC 等待};
+
+\node (7) at (1.5,-12) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {传送带运输};
+
+\node (8) at (-1.5,-12) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {RGV 移动};
+
+\node (9) at (0,-14) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {RGV 上下料};
+
+\node (10) at (0,-16) [draw=cyan!80!black, process, align=left,minimum width=\smbwd,minimum height=1cm] {清洗};
+
+\node (11) at (0,-18.5) [draw=cyan!80!black, decision, minimum width=\smbwd, minimum height=1cm] {是否有指令？};
+
+\node (12) at (4.5,-18.5) [draw=cyan!80!black, process, align=left, minimum width=\smbwd, minimum height=1cm] {RGV 等待};
+
+\node (13) at (0,-21) [draw=cyan!80!black, terminal,minimum width=\smbwd, minimum height=0.5cm] {停止作业};
+
+%连接定义的形状，绘制流程图--表示垂直线，|表示箭头方向
+\draw[cyan!80!black, arrows = -latex] (1) -- (2);
+\draw[cyan!80!black, arrows = -latex] (2) -- node[above] {N} (3);
+\draw[cyan!80!black, arrows = -latex] (2) -- node[right] {Y} (4);
+\draw[cyan!80!black, arrows = -latex] (4) -- (5);
+\draw[cyan!80!black, arrows = -latex] (5) -- node[above] {N} (6);
+\draw[cyan!80!black, arrows = -latex] (5) -- node[right] {Y} (0,-11);
+\draw[cyan!80!black, arrows = -latex] (0,-11) -| (7);
+\draw[cyan!80!black, arrows = -latex] (0,-11) -| (8);
+\draw[cyan!80!black] (7) |- (0,-13);
+\draw[cyan!80!black] (8) |- (0,-13);
+\draw[cyan!80!black, arrows = -latex] (0,-13) -- (9);
+\draw[cyan!80!black, arrows = -latex] (9) -- (10);
+\draw[cyan!80!black, arrows = -latex] (10) -- (11);
+\draw[cyan!80!black, arrows = -latex] (11) -- node[above] {N} (12);
+\draw[cyan!80!black, arrows = -latex] (11) -| (-3,-8.5) |- (5);
+\node[cyan!80!black, above] at (-2.1,-18.5) {Y};
+\draw[cyan!80!black, arrows = -latex] (11) -- (13);
+\end{tikzpicture}
+\end{document}
