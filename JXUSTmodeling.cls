@@ -70,6 +70,7 @@
 \RequirePackage{array}
 \RequirePackage{graphicx}
 \RequirePackage{caption}
+% \captionsetup{skip=0pt}% 将图表标题与图表之间的间距取消掉
 
 % 定义插图、表快捷命令
 \newcommand{\fig}[4]{
@@ -235,7 +236,18 @@
 % 设置页眉页脚格式
 \pagestyle{plain}
 
+% 重定义了浮动体与正文的垂直间距
+% \renewcommand\intextsep{0pt}% 文本页三，使用 h 位置选项排在页面中间的浮动体与上下正文之间的垂直间距
+% \renewcommand\textfloatsep{0pt}% 文本页上，处于页顶或页底的浮动体与正文之间的垂直间距
+% \renewcommand\floatsep{0pt}% 文本页上，处于页顶或页底的多个浮动体之间的垂直间距
+
 % 载入超链接宏包
 \RequirePackage{hyperref}
 \hypersetup{breaklinks,colorlinks}% 允许超链接断行,取消超链接的边框,使链接文字带颜色
 \hypersetup{hidelinks,bookmarksnumbered=true,bookmarksopen=true,pdfstartview=Fit}% 取消超链接的颜色，书签目录增加编号
+
+\RequirePackage{cleveref}% 载入自动引用宏包
+\crefname{figure}{图}{图}
+\crefname{table}{表}{表}
+\crefname{equation}{式}{式}
+\renewcommand{\eqref}[1]{\labelcref{#1}~\namecref{#1}}
