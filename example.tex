@@ -15,7 +15,7 @@
     
     {\heiti\zihao{1}此模板不是官方模板(没有官方模板)，开发者不对此模板作任何的担保，使用者在使用此模板时出现的任何问题、造成的损失都与开发者无关．}
 
-    你甚至可以在 \href{https://github.com/sikouhjw/JXUSTmodeling}{github} 即 \url{https://github.com/sikouhjw/JXUSTmodeling} 上找到最新的模板。
+    你甚至可以在 \href{https://github.com/sikouhjw/JXUSTmodeling}{github} 即 \url{https://github.com/sikouhjw/JXUSTmodeling} 上找到最新的模板．
 
     }{江西理工大学}{数学建模}{\LaTeX{}}{嘤嘤嘤}
     \section{问题的提出}\label{sec:1}
@@ -117,7 +117,7 @@
     \begin{example}[htbp]
         \centering
         \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-关于数学字体，本模板加载了 newtxmath 宏包，目的是使得数学字体更加贴近 mathtype(老师看不惯其他字体)，并且重定义了 $\int,\sum,\oint,\prod$ 符号．若使用者认为其他字体更好看，只需去 .cls 文件里找到 \verb|\RequirePackage{newtxmath}|，注释掉即可．
+关于数学字体，本模板加载了 newtxmath 和 esint 宏包，目的是使得数学字体更加贴近 mathtype(老师看不惯其他字体)，并且重定义了 $\sum,\prod$ 符号．若使用者认为其他字体更好看，只需去 .cls 文件里找到 \verb|\RequirePackage{newtxmath}\RequirePackage{esint}|，注释掉即可．
         \end{tcblisting}
         \caption{数学字体}\label{exam:2}
     \end{example}
@@ -205,6 +205,36 @@ siunitx 宏包例子如下：
 \fig{0.4}{fig1}{你傻吗 你是傻了吧}{fig:1}
 
 \begin{example}[htbp]
+    \centering
+    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
+普通的交叉引用请看 \href{https://github.com/CTeX-org/lshort-zh-cn/releases}{lshort-zh-cn}，我还加载了 cleveref (自动引用)宏包，引用方式为
+    \cref{exam:0}
+    \cref{sec:1}
+    \cref{fig:1}
+    \cref{tab:1}
+    也即无需写“图”“表”之类的字，直接引用，当然自定义的浮动体就做不到了，需要自己去定义它的名字，具体实现代码见 .cls
+    \begin{verbatim}
+\crefname{figure}{图}{图}
+\crefname{table}{表}{表}
+\crefname{equation}{式}{式}
+\renewcommand{\eqref}[1]{\labelcref{#1}~\namecref{#1}}
+    \end{verbatim}
+    公式的自动引用是特殊的，我重定义了 \verb|\eqref| 命令，引用跟上述方式一样，注意，在引用前后建议加空格(一个好习惯)．
+    \end{tcblisting}
+    \caption{交叉引用}\label{exam:14}
+\end{example}
+
+\begin{table}[htbp]
+    \centering
+    \caption{凑交叉引用的表格}\label{tab:1}
+    \begin{tabular}{c}
+        \hline
+        只是凑交叉引用的表格\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{example}[htbp]
         \centering
         \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
 定义了
@@ -253,20 +283,9 @@ siunitx 宏包例子如下：
     加载了 natbib 宏包，定义了 square,super，即参考文献引用为中括号，引用放在右上角，请不要去改动．
 
     基本用法：\cite{引用名称}，你只需要在 \verb|\bibitem{引用名称}参考文献| 这里将知网/其他网站导出符合国标的参考文献粘贴至此即可，引用名称自己写一个，不要重复．
-\end{tcblisting}
-    \caption{参考文献}\label{exam:10}
-\end{example}
-
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-    加载了 natbib 宏包，定义了 square,super，即参考文献引用为中括号，引用放在右上角，请不要去改动．
-
-    基本用法：\cite{引用名称}，你只需要在 \verb|\bibitem{引用名称}参考文献| 这里将知网/其他网站导出符合国标的参考文献粘贴至此即可，引用名称自己写一个，不要重复．
 
     同说明~\ref{exam:13}，不要去改动参考文献的格式
     \begin{verbatim}
-        \clearpage
         \phantomsection
         \addcontentsline{toc}{section}{参考文献}
         \begin{thebibliography}{99}
@@ -310,8 +329,12 @@ F=randsrc(1,1,[a;Prob]);
         \newpage
         \appendix
         \ctexset{section={
-            format={\zihao{4}\heiti\raggedright}
+            format={\zihao{-4}\heiti\raggedright}
         }}
+        {\zihao{5}
+        \begin{center}
+            \heiti\zihao{4} 附\hspace{1pc}录
+        \end{center}
     \end{verbatim}
 \end{tcblisting}
     \caption{整体格式}\label{exam:13}

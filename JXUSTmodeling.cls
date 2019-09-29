@@ -43,11 +43,10 @@
 \RequirePackage{amsthm}
 \RequirePackage{amssymb}
 \RequirePackage{newtxmath}
+\RequirePackage{esint}
 \DeclareSymbolFont{CMlargesymbols}{OMX}{cmex}{m}{n}
-\let\int\relax\let\sum\relax\let\oint\relax\let\prod\relax% 重定义求和、积分、连乘符号
+\let\sum\relax\let\prod\relax% 重定义求和、连乘符号
 \DeclareMathSymbol{\sum}{\mathop}{CMlargesymbols}{"50}
-\DeclareMathSymbol{\int}{\mathop}{CMlargesymbols}{"52}
-\DeclareMathSymbol{\oint}{\mathop}{CMlargesymbols}{"48}
 \DeclareMathSymbol{\prod}{\mathop}{CMlargesymbols}{"51}
 
 % 扩展的数学宏包, 可根据自己的需求载入
@@ -71,6 +70,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{caption}
 % \captionsetup{skip=0pt}% 将图表标题与图表之间的间距取消掉
+\RequirePackage[section]{placeins}% 禁止浮动体跨节
 
 % 定义插图、表快捷命令
 \newcommand{\fig}[4]{
