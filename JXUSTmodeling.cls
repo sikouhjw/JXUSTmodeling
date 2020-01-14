@@ -42,6 +42,7 @@
 \RequirePackage{amsfonts} 
 \RequirePackage{amsthm}
 \RequirePackage{amssymb}
+\let\lvert\relax\let\rvert\relax\let\lVert\relax\let\rVert\relax
 \RequirePackage{newtxmath}
 \RequirePackage{esint}
 \DeclareSymbolFont{CMlargesymbols}{OMX}{cmex}{m}{n}
@@ -207,13 +208,13 @@
 		% fixskip=true,% 默认情况下，article、book 和report 类的标题与正文的距离除了由beforeskip和afterskip选项设置的垂直间距外，还会有一些多余的间距。fixskip 选项用于抑制这些多余间距
 	},
 	subsection={% 设置 subsection 格式
-		format={\zihao{-4}\heiti\raggedright},% 小4号宋体居左
+		format={\zihao{-4}\bfseries\raggedright},% 小4号宋体居左
 		name={},
         aftername={\hspace{5bp}},% 修改序号和标题直接的间距
 		number={\arabic{section}.\arabic{subsection}},% 设置序号格式
 	},
 	subsubsection={% 设置 subsubsection 格式
-		format={\zihao{-4}\heiti\raggedright},% 小4号宋体居左
+		format={\zihao{-4}\bfseries\raggedright},% 小4号宋体居左
 		name={},
         aftername={\hspace{5bp}},% 修改序号和标题直接的间距
 		number={\arabic{section}.\arabic{subsection}.\arabic{subsubsection}},% 设置序号格式
@@ -229,6 +230,7 @@
         number=\arabic{section},
     }
 }
+\setCJKmainfont[Mapping=fullwidth-stop,AutoFakeBold=true]{SimSun}
 
 \setmainfont{Times New Roman}% 设置英文字体为Times New Roman
 
