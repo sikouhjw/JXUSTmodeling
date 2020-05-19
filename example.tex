@@ -1,345 +1,338 @@
-% !TeX program = xelatex
-% !TeX encoding = UTF-8
 \documentclass{JXUSTmodeling}
-\DeclareCaptionType[fileext=loe]{example}[说明][说明目录]
-\captionsetup[example]{labelsep=sspace}
-\lstloadlanguages{[LaTeX]TeX}
-\usepackage{tcolorbox,metalogo}
-\tcbuselibrary{listings}
+\usepackage{minted}
+\makeatletter
+\newlength\savefboxrule
+\newlength\savefboxsep
+\edef\example@name{\jobname-example.aux}
+\newenvironment{hexample}%
+{%
+\renewcommand{\minted@FVB@VerbatimOut}[1]{%
+  \@bsphack
+  \begingroup
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \let\FV@ProcessLine\minted@write@detok
+    \immediate\openout\FV@OutFile ##1\relax
+    \let\FV@FontScanPrep\relax
+    \let\@noligs\relax
+    \FV@Scan}
+\minted@FVB@VerbatimOut{\example@name}}%
+{\minted@FVE@VerbatimOut%
+  \trivlist\item\relax
+  \setlength{\savefboxrule}{\fboxrule}%
+  \setlength{\savefboxsep}{\fboxsep}%
+  \setlength{\fboxsep}{0.015\textwidth}%
+  \setlength{\fboxrule}{0.4pt}%
+  \fcolorbox[gray]{0}{0.95}{%
+    \begin{minipage}[c]{0.45\textwidth}%
+      \setlength{\fboxrule}{\savefboxrule}%
+      \setlength{\fboxsep}{\savefboxsep}%
+      \small\inputminted[breakanywhere,breaklines=true,numbers=left]{latex}{\example@name}%
+    \end{minipage}%
+  }%
+  \hfill%
+  \fbox{%
+    \begin{minipage}[c]{0.45\textwidth}%
+      \setlength{\fboxrule}{\savefboxrule}%
+      \setlength{\fboxsep}{\savefboxsep}%
+      \setlength{\parskip}{1ex plus 0.4ex minus 0.2ex}%
+      \normalsize\input{\example@name}%
+    \end{minipage}%
+  }%
+  \endtrivlist
+}
+\newenvironment{vexample}%
+{%
+\renewcommand{\minted@FVB@VerbatimOut}[1]{%
+  \@bsphack
+  \begingroup
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \let\FV@ProcessLine\minted@write@detok
+    \immediate\openout\FV@OutFile ##1\relax
+    \let\FV@FontScanPrep\relax
+    \let\@noligs\relax
+    \FV@Scan}
+\minted@FVB@VerbatimOut{\example@name}}%
+{\minted@FVE@VerbatimOut%
+  \trivlist\item\relax
+  \setlength{\savefboxrule}{\fboxrule}%
+  \setlength{\savefboxsep}{\fboxsep}%
+  \setlength{\fboxsep}{0.015\textwidth}%
+  \setlength{\fboxrule}{0.4pt}%
+  \begin{minipage}[c]{\textwidth}
+  \fcolorbox[gray]{0}{0.95}{%
+    \begin{minipage}[c]{\textwidth-0.03\textwidth-0.8pt}%
+      \setlength{\fboxrule}{\savefboxrule}%
+      \setlength{\fboxsep}{\savefboxsep}%
+      \small\inputminted[breakanywhere,breaklines=true,numbers=left]{latex}{\example@name}%
+    \end{minipage}%
+  }\\
+  \fbox{%
+    \begin{minipage}[c]{\textwidth-0.03\textwidth-0.8pt}%
+      \setlength{\fboxrule}{\savefboxrule}%
+      \setlength{\fboxsep}{\savefboxsep}%
+      \setlength{\parskip}{1ex plus 0.4ex minus 0.2ex}%
+      \normalsize\input{\example@name}%
+    \end{minipage}%
+  }%
+  \end{minipage}
+  \endtrivlist
+}
+\newenvironment{floatexample}%
+{%
+\renewcommand{\minted@FVB@VerbatimOut}[1]{%
+  \@bsphack
+  \begingroup
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \let\FV@ProcessLine\minted@write@detok
+    \immediate\openout\FV@OutFile ##1\relax
+    \let\FV@FontScanPrep\relax
+    \let\@noligs\relax
+    \FV@Scan}
+\minted@FVB@VerbatimOut{\example@name}}%
+{\minted@FVE@VerbatimOut%
+  \trivlist\item\relax
+  \setlength{\savefboxrule}{\fboxrule}%
+  \setlength{\savefboxsep}{\fboxsep}%
+  \setlength{\fboxsep}{0.015\textwidth}%
+  \setlength{\fboxrule}{0.4pt}%
+  \fcolorbox[gray]{0}{0.95}{%
+    \begin{minipage}[c]{\textwidth-0.03\textwidth-0.8pt}%
+      \setlength{\fboxrule}{\savefboxrule}%
+      \setlength{\fboxsep}{\savefboxsep}%
+      \small\inputminted[breakanywhere,breaklines=true,numbers=left]{latex}{\example@name}%
+    \end{minipage}%
+  }\\
+  \input{\example@name}%
+  \endtrivlist
+}
+\makeatother
+
+\biaoti{全国大学生数学建模竞赛 \LaTeX{} 模板使用手册}
+\keyword{数学建模；\LaTeX{}}
 \begin{document}
-    \thispagestyle{empty}\listofexamples\newpage
-    \biaoti{江西理工大学数学建模 \LaTeX{}模板说明}{\setcounter{page}{1}
-    为了让参加数学建模比赛的人专注内容，而尽可能少去关注格式，特此开发出此模板．
+\begin{abstract}
+  为了让参加数学建模比赛的人专注内容，而尽可能少去关注格式，特此开发出此模板．以上是套话。
 
-    本说明“详细”的介绍本模板的使用方法，请阅读完后再使用模板．{\heiti\zihao{2} 本模板只是个说明文档，在写论文时请不要在本 tex 上进行修改，请在 main.tex 上增添内容！}
-    
-    {\heiti\zihao{1}此模板不是官方模板(没有官方模板)，开发者不对此模板作任何的担保，使用者在使用此模板时出现的任何问题、造成的损失都与开发者无关．}
+  编译环境：
+  \begin{itemize}
+    \item 发行版：\TeX{} Live 2020；
+    \item 编译方式：\texttt{XeLaTeX}；
+    \item 编码：UTF8。
+  \end{itemize}
 
-    你甚至可以在 \href{https://github.com/sikouhjw/JXUSTmodeling}{github} 即 \url{https://github.com/sikouhjw/JXUSTmodeling} 上找到最新的模板。
+  使用水平：学习三个月及以上。
 
-    }{江西理工大学}{数学建模}{\LaTeX{}}{嘤嘤嘤}
-    \section{问题的提出}\label{sec:1}
-    \subsection{问题的背景}\label{sub:1.1}
-    数学建模就是根据实际问题来建立数学模型，对数学模型来进行求解，然后根据结果去解决实际问题．
+  本模板只是个说明文档，在写论文时请不要在 \texttt{example.tex} 文件上进行修改，请在 \texttt{main.tex} 上增添内容。
+  
+  本模板不是官方模板，开发者不对此模板作任何的担保，使用者在使用此模板时出现的任何问题、造成的损失都与开发者无关。
 
-    当需要从定量的角度分析和研究一个实际问题时，人们就要在深入调查研究、了解对象信息、作出简化假设、分析内在规律等工作的基础上，用数学的符号和语言作表述来建立数学模型．
+  模板代码托管地址：\url{https://github.com/sikouhjw/JXUSTmodeling}，有问题可以提 issue，但要遵守提问规范，参考我的博文《\href{https://sikouhjw.gitee.io/2020/03/08/2020-03-08-ask-questions/}{（我的）LaTeX 提问流程}》。
+\end{abstract}
 
-    \subsection{已知的条件}\label{sub:1.2}
-    \begin{enumerate}
-        \item Microsoft Office Word是微软公司的一个文字处理器应用程序；
-        \item 大部分人都不会“正确”使用 word，因此做出的论文都很丑；
-        \item 大部分人的审美都是错的．
-    \end{enumerate}
-
-    \subsection{问题的提出}\label{sub:1.3}
-    基于上述分析，特此开发江西理工大学数学建模 \LaTeX{}模板．
-
-    \section{模型的假设}\label{sec:2}
-    \begin{enumerate}
-        \item 使用者能够用 \LaTeX{}进行基本的操作；
-        \item 会查宏包手册；
-        \item 会正确的提问．
-    \end{enumerate}
-
-    \section{符号说明}\label{sec:3}
-    \begin{center}
-        \begin{tabularx}{0.5\textwidth}{c@{\hspace{1pc}}|@{\hspace{1pc}}X}
-            \Xhline{0.08em}
-            符号 & \multicolumn{1}{c}{符号说明}\\
-            \Xhline{0.05em}
-            $\int$ & 积分符号\\
-            \Xhline{0.08em}
-        \end{tabularx}
-    \end{center}
-
-    \section{模板的各种设置及规定}\label{sec:4}
-    \subsection{一些设置与规定}\label{sub:4.1}
-    \subsubsection{我校建模论文约定及我的一些排版习惯}
-    \begin{enumerate}
-    \item 边界距上下左右 2.5 厘米；
-    \item 行距 1.25 倍；
-    \item 题目三号黑体居中；
-    \item 一级标题四号黑体居中；
-    \item 其他标题小四宋体加粗；
-    \item 正文小四宋体；
-    \item 图表标题 5 号黑体；
-    \item 参考文献引用放右上角；
-    \item 数学公式一定要靠右编号；
-    \item 附录内容用 5 号字体；
-    \item 英文及普通数字使用 Times New Roman；
-    \item {\color{red} 代码只出现在附录}；
-    \item {\color{red} 列表环境使用分号，最后一个用句号}；
-    \item {\color{red} 行内公式不要用\verb|\displaystyle|};
-    \item {\color{red} 过多地图片只放几张在正文，其余在附录}；
-    \item {\color{red} 代码只出现在附录}；
-    \item {\color{red} 表格尽可能用三线表}；
-    \item {\color{red} 论文中不要出现中文句号，使用英文全角句号}；
-    \item {\color{red} 适当用列表环境}．
-   \end{enumerate}
-   当然以上黑白颜色的规定，使用者无需担心，本模板都已经设置好了(如果你正确的使用)，你只需注意其中彩色部分．
-
-   \subsubsection{纸质版论文格式规范}
-   \begin{enumerate}
-       \item 论文用白色A4纸打印(单面、双面均可)；上下左右各留出至少 2.5 厘米的页边距；从左侧装订；
-       \item 论文第一页为承诺书，第二页为编号专用页；
-       \item 论文第三页为摘要专用页(含标题和关键词，但不需要翻译成英文)，从此页开始编写页码；页码必须位于每页页脚中部，用阿拉伯数字从“1”开始连续编号．摘要专用页必须单独一页，且篇幅不能超过一页；
-       \item 从第四页开始是论文正文(不要目录，尽量控制在 20 页以内)；正文之后是论文附录(页数不限)；
-       \item 论文附录至少应包括参赛论文的所有源程序代码，如实际使用的软件名称、命令和编写的全部可运行的源程序(含 EXCEL、SPSS 等软件的交互命令)；通常还应包括自主查阅使用的数据等资料．赛题中提供的数据不要放在附录．如果缺少必要的源程序或程序不能运行(或者运行结果与正文不符)，可能会被取消评奖资格．论文附录必须打印装订在论文纸质版中．如果确实没有源程序，也应在论文附录中明确说明“本论文没有源程序”；
-       \item 论文正文和附录不能有任何可能显示答题人身份和所在学校及赛区的信息；
-       \item 引用别人的成果或其他公开的资料(包括网上资料)必须按照科技论文写作的规范格式列出参考文献，并在正文引用处予以标注；
-   \end{enumerate}
-
-   \subsubsection{电子版论文格式规范}
-   \begin{enumerate}
-       \item 参赛队应按照《全国大学生数学建模竞赛报名和参赛须知》的要求命名和提交以下两个电子文件，分别对应于参赛论文和相关的支撑材料；
-       \item 参赛论文的电子版不能包含承诺书和编号专用页(即电子版论文第一页为摘要页)．除此之外，其内容及格式必须与纸质版完全一致(包括正文及附录)，且必须是一个单独的文件，文件格式只能为 PDF 或者 Word 格式之一(建议使用 PDF 格式)，不要压缩，文件大小不要超过 20MB；
-       \item 撑材料(不超过 20MB)包括用于支撑论文模型、结果、结论的所有必要文件，至少应包含参赛论文的所有源程序，通常还应包含参赛论文使用的数据(赛题中提供的原始数据除外)、较大篇幅的中间结果的图形或表格、难以从公开渠道找到的相关资料等．所有支撑材料使用 WinRAR 软件压缩在一个文件中(后缀为 RAR)；如果支撑材料与论文内容不相符，该论文可能会被取消评奖资格．支撑材料中不能包含承诺书和编号专用页，不能有任何可能显示答题人身份和所在学校及赛区的信息．如果确实没有需要提供的支撑材料，可以不提供支撑材料．
-    \end{enumerate}
-   
-    \section{使用说明及例子}\label{sec:5}
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-请使用 TeX Live 2019 发行版，\XeLaTeX 编译，UTF8 编码．
-    \end{tcblisting}
-        \caption{模板环境}\label{exam:0}
-    \end{example}
-
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-\biaoti{论文标题}{摘要内容}{关键词1}{关键词2}{关键词3}{关键词4}
-若要修改关键词的数量，去 .cls 文件找到 \verb|\newcommand{\biaoti}[6]| ，将 \verb|[6]| 修改为其他数字，再在 \verb|\noindent{\heiti 关键词：}#3；#4；#5；#6| 这里修改即可．
-\end{tcblisting}
-        \caption{标题页命令}\label{exam:1}
-    \end{example}
-
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-关于数学字体，本模板加载了 newtxmath 和 esint 宏包，目的是使得数学字体更加贴近 mathtype(老师看不惯其他字体)，并且重定义了 $\sum,\prod$ 符号．若使用者认为其他字体更好看，只需去 .cls 文件里找到 \verb|\RequirePackage{newtxmath}\RequirePackage{esint}|，注释掉即可．
-        \end{tcblisting}
-        \caption{数学字体}\label{exam:2}
-    \end{example}
-
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-本模板加载了 physics 和 siunitx 宏包，具体用法详见对应手册，打开方式：命令行 cmd $\to$ texdoc physics 和 texdoc siunitx．siunitx 宏包定义了物理单位等的输入．
-
-physics 宏包我个人主要用到其 \verb|\dd| 命令(.cls 文件中也写这部分的注释\verb|% \newcommand*{\dd}{\,\mathrm{d}}% 请不要同时使用physics宏包和该命令|)，注意到该宏包下 $\dd{x}$ 与 $\dd x$ 是不同的，例如：$\int x \dd{x}$ 与 $\int x \dd x$．
-
-siunitx 宏包例子如下：
-
-纯数字 \num{1.2165416516}，\num{16541651.6151e15165}，纯单位 \si{N}，\si{kg \cdot m}，\si{\percent}，混合输入 \SI{1.5165e6541}{m/s}．
-\end{tcblisting}
-        \caption{物理、国标宏包}\label{exam:3}
-    \end{example}
-
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-本模板定义了几个数学符号快捷键
-\begin{verbatim}
-    \newcommand*{\ee}{\mathrm{e}}
-    \newcommand*{\ii}{\mathrm{i}}
-    \renewcommand{\leq}{\leqslant}
-    \renewcommand{\geq}{\geqslant}
-\end{verbatim}
-        \end{tcblisting}
-        \caption{自定义数学符号}\label{exam:4}
-    \end{example}
-
-    \begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-三线表，可以用 \verb|\Xhline{0.08em},\Xhline{0.05em}| 命令生成允许有竖线的横线，也可以用 \verb|\toprule,\midrule,\bottomrule| 命令生成不允许有竖线的横线，前者用于制作符号说明的表，推荐其他情况用后者．
-
-\parbox[b]{.5\textwidth}{
-    \begin{tabularx}{0.5\textwidth}{c@{\hspace{1pc}}|@{\hspace{1pc}}X}
-        \Xhline{0.08em}
-        符号 & \multicolumn{1}{c}{符号说明}\\
-        \Xhline{0.05em}
-        $\int$ & 积分符号\\
-        \Xhline{0.08em}
-    \end{tabularx}
-}
-\parbox[b]{.5\textwidth}{
-    \begin{tabularx}{0.5\textwidth}{YY}
-        \toprule
-        啊 & 啊\\
-        \midrule
-        $\int$ & 积分符号\\
-        \bottomrule
-    \end{tabularx}
-}
-定义了 \verb|\newcolumntype{Y}{>{\centering\arraybackslash}X}| ，即定义居中的X列格式
-    \end{tcblisting}
-    \caption{表格}\label{exam:5}
-\end{example}
-    
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-由于定义了 \verb|\graphicspath{{figures/}}|，因此图片请放 figure 文件夹里
-
-这么输入浮动体
-\begin{verbatim}
-    \begin{figure}[htbp]
-        \centering
-        \includegraphics[width=0.4\textwidth]{fig1}
-        \caption{你傻吗 你是傻了吧}\label{fig:1}
-    \end{figure}
-\end{verbatim}
-效果见图~\ref{fig:1}，当然我定义了快捷方式输入
-\begin{verbatim}
-    fig{宽度}{文件名}{图片标题}{标签}
-    \fig{0.4}{fig1}{你傻吗 你是傻了吧}{fig:1}
-\end{verbatim}
-还有 \verb|\figtwo,\tab,\tabtwo| (figtwo、tabtwo 命令的作用是并排，主要是为了防止浮动体\footnote{不要想着让图片一定输出在对应的文字下面！那样很可能会产生大量的空白，交叉引用与浮动体是很好的方式！}飘太远)命令，自己去看 .cls 文件吧．
-
-当然我贴心的(并不)在 figure 文件夹里放了几个 tikz 示例．
-    \end{tcblisting}
-    \caption{图片}\label{exam:6}
-\end{example}
-\fig{0.4}{fig1}{你傻吗 你是傻了吧}{fig:1}
-
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-普通的交叉引用请看 \href{https://github.com/CTeX-org/lshort-zh-cn/releases}{lshort-zh-cn}，我还加载了 cleveref (自动引用)宏包，引用方式为
-    \cref{exam:0}
-    \cref{sec:1}
-    \cref{fig:1}
-    \cref{tab:1}
-    也即无需写“图”“表”之类的字，直接引用，当然自定义的浮动体就做不到了，需要自己去定义它的名字，具体实现代码见 .cls
-    \begin{verbatim}
-\crefname{figure}{图}{图}
-\crefname{table}{表}{表}
-\crefname{equation}{式}{式}
-\renewcommand{\eqref}[1]{\labelcref{#1}~\namecref{#1}}
-    \end{verbatim}
-    公式的自动引用是特殊的，我重定义了 \verb|\eqref| 命令，引用跟上述方式一样，注意，在引用前后建议加空格(一个好习惯)．
-    \end{tcblisting}
-    \caption{交叉引用}\label{exam:14}
-\end{example}
-
-\begin{table}[htbp]
-    \centering
-    \caption{凑交叉引用的表格}\label{tab:1}
-    \begin{tabular}{c}
-        \hline
-        只是凑交叉引用的表格\\
-        \hline
-    \end{tabular}
-\end{table}
-
-\begin{example}[htbp]
-        \centering
-        \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-定义了
-\begin{verbatim}
-    \captionsetup{format=hang}
-    \DeclareCaptionLabelSeparator*{sspace}{\ \ }
-    \captionsetup[figure]{labelsep=sspace}
-    \captionsetup[table]{labelsep=sspace}
-    \DeclareCaptionFont{heiti}{\heiti}
-    \DeclareCaptionFont{5hao}{\zihao{5}}
-    \captionsetup{labelfont={heiti,5hao},textfont={heiti,5hao}}
-\end{verbatim}
-即设置浮动体标题悬挂缩进，设置图表标题中图表后面接两个空格，设置图表标题为5号字体，黑体．
-请不要去改动这些设置．
-        \end{tcblisting}
-        \caption{图表标题}\label{exam:7}
-\end{example}
-
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-定义了
-\begin{verbatim}
-    \setlist[enumerate,1]{itemsep=0pt,parsep=0pt,leftmargin=0pt,itemindent=3.25\ccwd}
-\end{verbatim}
-即缩小垂直间距，产生两个字宽的缩进，多行靠左． 但是列表内多段落文字会产生首行无法缩进的问题，请不要用于多段落文字 (手动1．2．3．吧$\ldots$，注意这里的“点”是英文全角句号)．
+\section{模板规范}
 \begin{enumerate}
-    \item 本文模型一采用分析的方法得出了最优化方案，减小了计算量，使模型更通俗易懂；
-    \item 本文模型考虑到加工第一道工序所需时间与加工第二道工序时间不同，对 CNC 的分配也做了相应的调整，使模型更加合理．
+  \item 页边距 \texttt{textwidth=444bp,vmargin=2.5cm}，为了满足行长是字号的整数倍，不采取 \texttt{hmargin=2.5cm}；
+  \item 多倍行距：1.25；
+  \item 标题三号黑体居中；
+  \item 一级标题四号黑体居中；
+  \item 其他标题小四宋体加粗；
+  \item 正文小四宋体；
+  \item 图表标题 5 号黑体；
+  \item 参考文献引用放右上角；
+  \item 数学公式靠右编号；
+  \item 附录内容用 5 号字体；
+  \item 英文及普通数字使用 \texttt{newtxtext} 宏包；
+  \item 用英文全角句号代替中文句号。
 \end{enumerate}
-        \end{tcblisting}
-        \caption{列表环境}\label{exam:8}
-    \end{example}
 
-\begin{example}[htbp]
+\section{推荐的写作规范}
+\begin{enumerate}
+  \item 代码只出现在附录；
+  \item 列表环境使用分号，最后一个用句号；
+  \item 行内公式不要用 \mintinline{latex}{|\displaystyle|}；
+  \item 过多地图片只放几张在正文，其余在附录；
+  \item 表格尽可能用三线表。
+\end{enumerate}
+
+\section{纸质版论文格式规范}
+\begin{enumerate}
+  \item 论文用白色A4纸打印（单面、双面均可）；上下左右各留出至少 2.5 厘米的页边距；从左侧装订；
+  \item 论文第一页为承诺书，第二页为编号专用页；
+  \item 论文第三页为摘要专用页（含标题和关键词，但不需要翻译成英文），从此页开始编写页码；页码必须位于每页页脚中部，用阿拉伯数字从“1”开始连续编号．摘要专用页必须单独一页，且篇幅不能超过一页；
+  \item 从第四页开始是论文正文（不要目录，尽量控制在 20 页以内）；正文之后是论文附录（页数不限）；
+  \item 论文附录至少应包括参赛论文的所有源程序代码，如实际使用的软件名称、命令和编写的全部可运行的源程序（含 EXCEL、SPSS 等软件的交互命令）；通常还应包括自主查阅使用的数据等资料．赛题中提供的数据不要放在附录．如果缺少必要的源程序或程序不能运行（或者运行结果与正文不符），可能会被取消评奖资格．论文附录必须打印装订在论文纸质版中．如果确实没有源程序，也应在论文附录中明确说明“本论文没有源程序”；
+  \item 论文正文和附录不能有任何可能显示答题人身份和所在学校及赛区的信息；
+  \item 引用别人的成果或其他公开的资料（包括网上资料）必须按照科技论文写作的规范格式列出参考文献，并在正文引用处予以标注；
+\end{enumerate}
+
+\section{电子版论文格式规范}
+\begin{enumerate}
+  \item 参赛队应按照《全国大学生数学建模竞赛报名和参赛须知》的要求命名和提交以下两个电子文件，分别对应于参赛论文和相关的支撑材料；
+  \item 参赛论文的电子版不能包含承诺书和编号专用页（即电子版论文第一页为摘要页）．除此之外，其内容及格式必须与纸质版完全一致（包括正文及附录），且必须是一个单独的文件，文件格式只能为 \texttt{PDF} 或者 \texttt{Word} 格式之一（建议使用 \texttt{PDF} 格式），不要压缩，文件大小不要超过 \SI{20}{MB}；
+  \item 撑材料（不超过 \SI{20}{MB}）包括用于支撑论文模型、结果、结论的所有必要文件，至少应包含参赛论文的所有源程序，通常还应包含参赛论文使用的数据（赛题中提供的原始数据除外）、较大篇幅的中间结果的图形或表格、难以从公开渠道找到的相关资料等．所有支撑材料使用 WinRAR 软件压缩在一个文件中（后缀为 \texttt{RAR}）；如果支撑材料与论文内容不相符，该论文可能会被取消评奖资格．支撑材料中不能包含承诺书和编号专用页，不能有任何可能显示答题人身份和所在学校及赛区的信息．如果确实没有需要提供的支撑材料，可以不提供支撑材料．
+\end{enumerate}
+
+\section{使用例子}
+生成标题页
+\begin{hexample}
+\biaoti{标题}
+\keyword{关键词；关键词}
+\begin{abstract}
+  摘要内容摘要内容
+\end{abstract}
+\end{hexample}
+
+西文字体和数学公式用了大家喜闻乐见的 Times 风格的 \texttt{newtxtext} 和 \texttt{newtxmath} 宏包
+\begin{hexample}
+Times
+\[ \widehat{f}(\xi) = \frac{1}{(2\pi)^{d/2}}+ \int_{\mathbb{R}^d} e^{-ix \cdot \xi} f(x) \dd{x} \]
+\end{hexample}
+
+方便输入 Physical quantities 的 \texttt{siunitx} 宏包和简便数学公式输入的 \texttt{physics} 宏包
+\begin{hexample}
+\SI{123}{cm} \quad \si{Hz} \quad \num{3.45d-4}\par
+$\int f(x) \dd{x}$ \quad $\dv{x}$
+\end{hexample}
+
+规定了小于等于号的样式
+\begin{hexample}
+$\leq = \leqslant$ \quad $\geq = \geqslant$
+\end{hexample}
+
+定义了 \mintinline{latex}{tabularx} 环境中的 \mintinline{latex}{Y} 选项
+\begin{hexample}
+\begin{tabularx}{\textwidth}{XY}
+  \hline
+  左对齐 & 局中对齐\\
+  \hline
+\end{tabularx}
+\end{hexample}
+
+三线表的输入
+\begin{hexample}
+\begin{tabularx}{\textwidth}{YY}
+  \toprule
+  文字 & 文字\\
+  \midrule
+  文字 & 文字\\
+  文字 & 文字\\
+  \bottomrule
+\end{tabularx}
+\end{hexample}
+如果要添加竖线，建议用 \mintinline{latex}{\Xhline{线宽}} 制作三线表
+\begin{hexample}
+\begin{tabularx}{\textwidth}{c@{\hspace{1pc}}|@{\hspace{1pc}}X}
+  \Xhline{0.08em}
+  符号 & \multicolumn{1}{c}{符号说明}\\
+  \Xhline{0.05em}
+  $\int$ & 积分符号\\
+  \Xhline{0.08em}
+\end{tabularx}
+\end{hexample}
+表格尽量放在浮动体环境中
+\begin{floatexample}
+\begin{table}[htbp]
+  \centering
+  \caption{表注}\label{tab:example}
+  \begin{tabularx}{\textwidth}{YY}
+    \toprule
+    文字 & 文字\\
+    \midrule
+    文字 & 文字\\
+    文字 & 文字\\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+\end{floatexample}
+
+插图：图片建议放在 \texttt{figures} 文件夹里。基础使用方法
+\begin{floatexample}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\textwidth]{example-image.pdf}
+  \caption{图注}\label{fig:example}
+\end{figure}
+\end{floatexample}
+使用子图
+\begin{floatexample}
+\begin{figure}[htbp]
+  \centering
+  \subfloat[子图注]{\label{sub-fig-1}% 为子图加交叉引用
+  \begin{minipage}{0.4\textwidth}
     \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-    除了画图可以有彩色(交给全国阅卷是纸质稿，黑白打印，自己权衡一下吧)，请不要在正文中使用彩色．
-\end{tcblisting}
-    \caption{彩色}\label{exam:9}
-\end{example}
-
-\begin{example}[htbp]
+    \includegraphics[width=\textwidth]{example-image-a}
+  \end{minipage}
+  }
+  \qquad
+  \subfloat[子图注]{%
+  \begin{minipage}{0.4\textwidth}
     \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-    加载了 natbib 宏包，定义了 square,super，即参考文献引用为中括号，引用放在右上角，请不要去改动．
+    \includegraphics[width=\textwidth]{example-image-b}
+  \end{minipage}
+  }
+  \caption{图注}\label{fig:subexample}
+\end{figure}
+\end{floatexample}
+交叉引用使用方法
+\begin{hexample}
+数据拟合图像见\ref{fig:example}。
+结果图像见\ref{fig:subexample}
+的子图~\ref{sub-fig-1}。
+结果数据见\ref{tab:example}。
+推导公式见 \ref{eq:example}。
+\end{hexample}
+用 \mintinline{latex}{\labelformat} 定制了 \mintinline{latex}{\ref} 的输出格式，无需考虑加“图”、“表”、“式”等字
 
-    基本用法：\cite{引用名称}，你只需要在 \verb|\bibitem{引用名称}参考文献| 这里将知网/其他网站导出符合国标的参考文献粘贴至此即可，引用名称自己写一个，不要重复．
+公式输入
+\begin{hexample}
+有编号行间公式
+\begin{equation}\label{eq:example}
+  E = mc^2
+\end{equation}
+无编号行间公式
+\[ E = mc^2 \]
+行内公式
+$E = mc^2$\par
+多行公式
+\begin{align}
+  E &= mc^2\\
+  E/c^2 &= m
+\end{align}
+\end{hexample}
 
-    同说明~\ref{exam:13}，不要去改动参考文献的格式
-    \begin{verbatim}
-        \phantomsection
-        \addcontentsline{toc}{section}{参考文献}
-        \begin{thebibliography}{99}
-        \bibitem{引用名称}参考文献
-        \end{thebibliography}
-    \end{verbatim}
-\end{tcblisting}
-    \caption{参考文献}\label{exam:11}
-\end{example}
+参考文献引用，用知网/其他方式导出符合国标的参考文献
+\begin{hexample}
+文字\cite{label1}
+文字\cite{label2}
+\end{hexample}
 
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-    加载了 listings 宏包，定义了 matlab、python 环境，使用方法：
-    \begin{matlab}
-function F=random()
-a=[1 2];
-Prob=[0.99 0.01];
-F=randsrc(1,1,[a;Prob]);
+用 \mintinline{latex}{listings} 宏包排版代码环境，定制了 MATLAB 环境和 Python 环境
+\begin{hexample}
+\begin{matlab}
+clc,clear;
+\end{matlab}
+\begin{python}
+print("Hello Python world!")
+\end{python}
+\end{hexample}
 
-% areas=[]
-% for i=1:100
- % x=unifrnd(0,10,[1,100]);
- % y=unifrnd(0,10,[1,100]);
-% frequency=sum(x<=1)+sum(y<=1);
-% area=100*frequency/100;
-% areas=[areas,area];
-% end
-    \end{matlab}
-当然代码都是放附录的，正文不要出现．
-\end{tcblisting}
-    \caption{listings宏包}\label{exam:12}
-\end{example}
+\begin{thebibliography}{99}
+  \bibitem{label1}参考文献
+  \bibitem{label2}参考文献
+  \bibitem{label3}参考文献
+\end{thebibliography}
 
-\begin{example}[htbp]
-    \centering
-    \begin{tcblisting}{colback=red!5!white,colframe=red!25,left=6mm,listing options={style=tcblatex,numbers=left,numberstyle=\tiny\color{red!75!black}}}
-    设置了一级标题、二级标题、三级标题、附录(附录请在 appendix.tex 文件里输入，不要破坏原本的一些设置)、页眉页脚、英文字体和普通数字字体的格式，不要去改动．
-    不要改动
-    \begin{verbatim}
-        \newpage
-        \appendix
-        \ctexset{section={
-            format={\zihao{-4}\heiti\raggedright}
-        }}
-        {\zihao{5}
-        \begin{center}
-            \heiti\zihao{4} 附\hspace{1pc}录
-        \end{center}
-    \end{verbatim}
-\end{tcblisting}
-    \caption{整体格式}\label{exam:13}
-\end{example}
+\begin{appendixx}
+  \section{问题一的 MATLAB 代码}
+  \begin{matlab}
+clc,clear;
+  \end{matlab}
+\end{appendixx}
 
-    \input{reference.tex}
-    \input{appendix.tex}
 \end{document}
