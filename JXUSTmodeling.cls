@@ -3,7 +3,7 @@
 % 开发者:sikouhjw,XAjzh
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{JXUSTmodeling}[2020/05/19 version 2.1]
+\ProvidesClass{JXUSTmodeling}[2020/05/19 version 2.2]
 
 % \ProcessOptions\relax
 \LoadClass[oneside,a4paper,UTF8,zihao=-4]{ctexart}
